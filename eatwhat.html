@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>午餐幸運輪盤</title>
+    <style>
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(0, 123, 255, 0.5); }
+            50% { box-shadow: 0 0 30px rgba(0, 123, 255, 0.9); }
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url('https://www.bizzbuzz.news/h-upload/2022/12/18/1631466-culinary.webp') no-repeat center center fixed;
+            background-color: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(8px);
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        #roulette {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 5px solid #007bff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            text-align: center;
+            background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+            transition: transform 2s ease-in-out;
+            animation: glow 2s infinite;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 24px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 12px 24px;
+            font-size: 18px;
+            background: linear-gradient(135deg, #007bff, #00bfff);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+            transition: background 0.3s, transform 0.2s;
+            animation: glow 1.5s infinite;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #0056b3, #0066cc);
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <a href="https://www.infotalkcorp.com/wp-content/uploads/2020/08/hong_kong_polytechnic_university.png" target="_blank">
+        <img src="https://www.infotalkcorp.com/wp-content/uploads/2020/08/hong_kong_polytechnic_university.png" alt="PolyU Logo" style="position: absolute; top: 10px; left: 10px; width: 200px;">
+    </a>
+   
+    <div id="roulette">?</div>
+    <div id="result">今日食乜9好！</div>
+    
+    <button onclick="spinRoulette()">選擇午餐</button>
+
+    <script>
+        let restaurants = [
+            "舊can叉鴨飯",
+            "刀削麵",
+            "威風",
+            "泰國嘢",
+            "呵can",
+            "印尼Pizza",
+            "尖沙咀Pizza",
+            "嘉寶漢堡",
+            "牛丼",
+            "藥膳",
+            "水門雞",
+            "McDonald",
+            "薩利啊！",
+            "車仔麵（吉野家隔離）",
+            "九份飽",
+            "越南嘢",
+            "肉骨茶紅豆冰",
+            "譚仔",
+            "譚仔三哥",
+            "上海嘢",
+            "都can food court",
+            "尖東橋車仔麵",
+            "女僕Cafe",
+            "八方雲集",
+            "雲桂香"
+        ];
+
+        function spinRoulette() {
+            const roulette = document.getElementById('roulette');
+            roulette.style.transition = 'none';
+            roulette.style.transform = 'rotate(0deg)'; // Reset the rotation
+            setTimeout(() => {
+                roulette.style.transition = 'transform 2s ease-in-out';
+                const randomRotation = 360 * 5 + Math.floor(Math.random() * 360); // 5 full rotations + random angle
+                roulette.style.transform = `rotate(${randomRotation}deg)`;
+                
+                setTimeout(() => {
+                    const randomIndex = Math.floor(Math.random() * restaurants.length);
+                    const selectedRestaurant = restaurants[randomIndex];
+                    document.getElementById('roulette').innerText = selectedRestaurant;
+                    document.getElementById('result').innerText = `今日你要食：${selectedRestaurant}`;
+                }, 2000); // Match the transition duration
+            }, 100);
+        }
+    </script>
+</body>
+</html>
